@@ -1,6 +1,6 @@
 # Cronex
 
-[![Travis Build](https://api.travis-ci.org/jbernardo95/cronex.svg?branch=master)](https://travis-ci.org/jbernardo95/cronex/)
+[![Travis Build](https://api.travis-ci.org/altenwald/cronex.svg?branch=master)](https://travis-ci.org/altenwald/cronex/)
 
 A cron like system, built in Elixir, that you can mount in your supervision tree.
 
