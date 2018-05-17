@@ -38,6 +38,14 @@ defmodule MyApp.Scheduler do
   every :day, at: "10:00" do
     IO.puts "Every day job at 10:00"
   end
+
+  every :monday, at: "10:00" do
+    IO.puts "Monday at 10:00"
+  end
+
+  every [:friday, :saturday], at: "20:00" do
+    IO.puts "Party time! Weekend!"
+  end
 end
 
 # Start scheduler with start_link
