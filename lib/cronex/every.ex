@@ -95,7 +95,7 @@ defmodule Cronex.Every do
     end
   end
 
-  defmacro every(arg1, [at: time] = arg2, [do: block] = job)
+  defmacro every(arg1, [at: time], [do: block])
     when is_list(arg1) and is_bitstring(time) do
     Enum.map arg1, fn item ->
       job_name = String.to_atom("job_every_#{item}_at_#{time}")
