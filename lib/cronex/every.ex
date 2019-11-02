@@ -1,5 +1,6 @@
 defmodule Cronex.Every do
   require IEx
+
   @moduledoc """
   This module defines scheduling macros.
   """
@@ -97,10 +98,11 @@ defmodule Cronex.Every do
     end
   end
 
-  defmacro every(arg1, [at: time], [do: block])
-    when is_list(arg1) and is_bitstring(time) do
-    Enum.map arg1, fn item ->
+  defmacro every(arg1, [at: time], do: block)
+           when is_list(arg1) and is_bitstring(time) do
+    Enum.map(arg1, fn item ->
       job_name = String.to_atom("job_every_#{item}_at_#{time}")
+
       quote do
         @jobs unquote(job_name)
 
@@ -111,10 +113,10 @@ defmodule Cronex.Every do
             unquote(time),
             fn -> unquote(block) end
           )
-          |> Cronex.Job.validate!
+          |> Cronex.Job.validate!()
         end
       end
-    end
+    end)
   end
 
   defmacro every(arg1, arg2, [do: block] = _job)
