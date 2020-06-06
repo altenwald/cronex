@@ -16,11 +16,11 @@ defmodule Cronex.Every do
 
   ## Example
 
-      every :day, do
+      every :day do
         # Daily task here 
       end
 
-      every :month, do
+      every :month do
         # Monthly task here 
       end
   """
@@ -63,11 +63,11 @@ defmodule Cronex.Every do
 
   ## Example
 
-      every :day, at: "10:00", do
+      every :day, at: "10:00" do
         # Daily task at 10:00 here 
       end
 
-      every :monday, at: "12:00", do
+      every :monday, at: "12:00" do
         # Monday task at 12:00 here 
       end
 
