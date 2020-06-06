@@ -15,7 +15,7 @@ defmodule Cronex.Scheduler do
 
       @before_compile unquote(__MODULE__)
 
-      def start_link do
+      def start_link(_) do
         Supervisor.start_link(__MODULE__, nil, name: __MODULE__)
       end
 
