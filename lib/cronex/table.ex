@@ -33,7 +33,7 @@ defmodule Cronex.Table do
   def init(args) do
     scheduler = args[:scheduler]
 
-    if is_nil(scheduler), do: raise_scheduler_not_provided_error()
+    if is_nil(scheduler), do: raise_scheduler_not_provided_error(args)
 
     GenServer.cast(self(), :init)
 
@@ -96,7 +96,7 @@ defmodule Cronex.Table do
     {:noreply, new_state}
   end
 
-  defp raise_scheduler_not_provided_error do
+  defp raise_scheduler_not_provided_error(provided) do
     raise ArgumentError,
       message: """
       No scheduler was provided when starting Cronex.Table.
@@ -104,6 +104,8 @@ defmodule Cronex.Table do
       Please provide a Scheduler like so:
 
           Cronex.Table.start_link(scheduler: MyApp.Scheduler)
+
+      Provided: #{inspect(provided)}
       """
   end
 
