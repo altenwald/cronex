@@ -22,7 +22,7 @@ defmodule Cronex.Scheduler do
       @doc false
       def init(_opts) do
         children = [
-          {Task.Supervisor, [[name: job_supervisor()]]},
+          {Task.Supervisor, name: job_supervisor()},
           {Cronex.Table, [[scheduler: __MODULE__], [name: table()]]}
         ]
 
