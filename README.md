@@ -1,6 +1,45 @@
 # Cronex
 
-[![Travis Build](https://api.travis-ci.org/altenwald/cronex.svg?branch=master)](https://travis-ci.org/altenwald/cronex/)
+> [!CAUTION]
+> This development is old, and Elixir changed a lot so I decided to teach you how Elixir could do this
+> instead of doing that using a dependency. Keep your code with as few dependencies as possible!
+
+## Using Elixir instead of Cronex
+
+Of course, getting a similar cron like it's in Linux isn't as easy doing that by yourself, but
+are you really need it? Check this code:
+
+```elixir
+defmodule MyApp.MyModule do
+  use GenServer
+
+  def start_link([]), do: GenServer.start_link(__MODULE__, [], name: __MODULE__)
+
+  @impl GenServer
+  @doc false
+  def init([]) do
+    Process.send_after(self(), :timeout, 60_000)
+    {:ok, []}
+  end
+
+  @impl GenServer
+  @doc false
+  def handle_info(:timeout, state) do
+    Process.send_after(self(), :timeout, 60_000)
+    # this is running every minute so, you can check the NaiveDateTime.utc_now()
+    # and see what you need to run now.
+    {:noreply, state}
+  end
+end
+```
+
+So, I recommend you to do it in this way and avoid dependencies for something that's very simple.
+And you can get this code as example or build your own based on `:timer.apply_after` for avoiding
+the creation of the GenServer, or even using Task inside of a supervisor where it could respawn
+a new task and wait for some time previously to start. It's on your own, use what you need and
+evaluate different options.
+
+---
 
 A cron like system, built in Elixir, that you can mount in your supervision tree.
 
